@@ -60,3 +60,8 @@ Pure HTML/CSS indipendent layers implementation.
 - `.layer-overlay--loading`: add loading cursor
 - `.layer-overlay--black`: set black overlay style (default)
 - `.layer-overlay--white`: set white overlay style
+
+---
+
+## License
+Released under [MIT License](LICENSE.txt).
