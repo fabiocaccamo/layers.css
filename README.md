@@ -4,11 +4,6 @@
 ```html
 <div class="layers-container">
     
-    <!-- 
-    .layer--loading: show inner .layer-overlay--loading
-    .layer--noheader: hide inner .layer-header
-    .layer--nofooter: hide inner .layer-footer
-    -->
     <div class="layer">
         
         <div class="layer-header">
@@ -25,13 +20,8 @@
             <p>Footer</p>
         </div>
         
-        <!--
-        .layer-overlay--visible: show current overlay
-        .layer-overlay--loading: add loading cursor
-        .layer-overlay--black
-        .layer-overlay--white
-        -->
         <div class="layer-overlay">
+            <p>Overlay</p>
         </div>
         
     </div>
@@ -44,6 +34,20 @@
   
 </div>
 ```
+
+#### Optional modifiers:
+
+**`.layer`**
+- `.layer--loading`: show inner `.layer-overlay--loading`
+- `.layer--noheader`: hide inner `.layer-header`
+- `.layer--nofooter`: hide inner `.layer-footer`
+- `.layer--noscroll`: prevent inner `.layer-body` scroll
+
+**`.layer-overlay`**
+- `.layer-overlay--visible`: show current overlay
+- `.layer-overlay--loading`: add loading cursor
+- `.layer-overlay--black`: set black overlay style (default)
+- `.layer-overlay--white`: set white overlay style
 
 ### CSS
 ```css
