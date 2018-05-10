@@ -5,9 +5,9 @@
 <div class="layers-container">
     
     <!-- 
-    layer--loading: show inner .layer-overlay--loading
-    layer--noheader: hide inner .layer-header
-    layer--nofooter: hide inner .layer-footer
+    .layer--loading: show inner .layer-overlay--loading
+    .layer--noheader: hide inner .layer-header
+    .layer--nofooter: hide inner .layer-footer
     -->
     <div class="layer">
         
@@ -26,10 +26,10 @@
         </div>
         
         <!--
-        layer-overlay--visible: show current overlay
-        layer-overlay--loading: add loading cursor
-        layer-overlay--black
-        layer-overlay--white
+        .layer-overlay--visible: show current overlay
+        .layer-overlay--loading: add loading cursor
+        .layer-overlay--black
+        .layer-overlay--white
         -->
         <div class="layer-overlay">
         </div>
