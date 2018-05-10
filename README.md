@@ -1,5 +1,5 @@
 # html-layers
-Pure HTML/CSS indipendent layers implementation.
+Pure HTML/CSS indipendent layers stack implementation.
 
 ## Usage
 
