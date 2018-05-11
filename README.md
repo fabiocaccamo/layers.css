@@ -49,6 +49,9 @@ Pure HTML/CSS indipendent layers stack implementation.
 
 ##### Optional modifiers:
 
+**`.layers-container`**
+- `.layers-container--inline`: display inner `.layer` inline instead of stacked *(requires .layer width customization)*
+
 **`.layer`**
 - `.layer--loading`: show inner `.layer-overlay--loading`
 - `.layer--noheader`: hide inner `.layer-header`
