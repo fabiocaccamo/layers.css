@@ -8,6 +8,7 @@
 
 .layers-container { display: block; width: 100vw; height: 100vh; position: relative; overflow: hidden; }
 .layers-container .layers-container { display: none !important; }
+.layers-container.layers-container--inline .layer { display: inline-block; float:left; position: relative; }
 
 .layer { display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; overflow: hidden; }
 .layer .layer { display: none !important; }
