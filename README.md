@@ -12,37 +12,41 @@ Pure HTML/CSS indipendent layers stack implementation.
 ```html
 <div class="layers-container">
     
-    <div class="layer">
-        
-        <div class="layer-header">
-            <p>Header</p>
-        </div>
-        
-        <div class="layer-body">
-            <div class="layer-content">
-                <p>Content</p>
+    <div class="layers-paginator layers-paginator--horizontal layers-paginator--pages-count-10 layers-paginator--page-1">
+    
+        <div class="layer">
+
+            <div class="layer-header">
+                <p>Header</p>
             </div>
+
+            <div class="layer-body">
+                <div class="layer-content">
+                    <p>Content</p>
+                </div>
+            </div>
+
+            <div class="layer-footer">
+                <p>Footer</p>
+            </div>
+
+            <div class="layer-overlay">
+                <p>Overlay</p>
+            </div>
+
         </div>
-        
-        <div class="layer-footer">
-            <p>Footer</p>
+
+        <div class="layer">
+            <!-- ... -->
         </div>
-        
-        <div class="layer-overlay">
-            <p>Overlay</p>
+
+        <div class="layer">
+            <!-- ... -->
         </div>
-        
-    </div>
-  
-    <div class="layer">
+
         <!-- ... -->
-    </div>
     
-    <div class="layer">
-        <!-- ... -->
     </div>
-    
-    <!-- ... -->
   
 </div>
 ```
@@ -51,6 +55,12 @@ Pure HTML/CSS indipendent layers stack implementation.
 
 **`.layers-container`**
 - `.layers-container--inline`: display inner `.layer` inline instead of stacked *(requires .layer width customization)*
+
+**`.layers-paginator`**
+- `.layers-paginator--horizontal`: make layers paginated horizontally
+- `.layers-paginator--vertical`: make layers paginated vertically
+- `.layers-paginator--pages-count-{n}`: specify pages count (same as layers count) to correctly set paginator size
+- `.layers-paginator--page-{n}`: specify current paginator page *(1 based)*
 
 **`.layer`**
 - `.layer--loading`: show inner `.layer-overlay--loading`
