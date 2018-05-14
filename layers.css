@@ -1,4 +1,5 @@
 .layers-container,
+.layers-paginator,
 .layer,
 .layer .layer-header,
 .layer .layer-body,
@@ -7,11 +8,60 @@
 .layer .layer-overlay { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
 
 .layers-container { display: block; width: 100vw; height: 100vh; position: relative; overflow: hidden; }
-.layers-container .layers-container { display: none !important; }
-.layers-container.layers-container--inline .layer { display: inline-block; float:left; position: relative; }
 
-.layer { display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; overflow: hidden; }
-.layer .layer { display: none !important; }
+.layers-paginator { display: block; width:100%; height: 100%; position: relative; overflow: hidden; }
+.layers-paginator .layer { position: relative; }
+
+.layers-paginator.layers-paginator--horizontal { transition: margin-left 0.5s ease-in-out; }
+.layers-paginator.layers-paginator--horizontal .layer { display: inline-block; float:left; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-0,
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-1 { width:100%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-2 { width:200%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-3 { width:300%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-4 { width:400%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-5 { width:500%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-6 { width:600%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-7 { width:700%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-8 { width:800%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-9 { width:900%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--pages-count-10 { width:1000%; }
+
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-1 { margin-left:0; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-2 { margin-left:-100%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-3 { margin-left:-200%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-4 { margin-left:-300%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-5 { margin-left:-400%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-6 { margin-left:-500%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-7 { margin-left:-600%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-8 { margin-left:-700%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-9 { margin-left:-800%; }
+.layers-paginator.layers-paginator--horizontal.layers-paginator--page-10 { margin-left:-900%; }
+
+.layers-paginator.layers-paginator--vertical { transition: margin-top 0.5s ease-in-out; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-0,
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-1 { height:100%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-2 { height:200%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-3 { height:300%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-4 { height:400%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-5 { height:500%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-6 { height:600%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-7 { height:700%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-8 { height:800%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-9 { height:900%; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--pages-count-10 { height:1000%; }
+
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-1 { margin-top:0; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-2 { margin-top:-100vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-3 { margin-top:-200vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-4 { margin-top:-300vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-5 { margin-top:-400vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-6 { margin-top:-500vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-7 { margin-top:-600vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-8 { margin-top:-700vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-9 { margin-top:-800vh; }
+.layers-paginator.layers-paginator--vertical.layers-paginator--page-10 { margin-top:-900vh; }
+
+.layer { display: block; width: 100%; height: 100%; max-width: 100vw; max-height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; overflow: hidden; }
 
 .layer.layer--loading .layer-header,
 .layer.layer--loading .layer-footer,
@@ -28,7 +78,7 @@
 .layer .layer-body .layer-content { display: block; width: 100%; height: 100%; position: relative; overflow-x: hidden; overflow-y: auto; }
 .layer .layer-overlay { display: none; width: 100%; height: 100%; position: absolute; z-index: 3; top: 0; left: 0; bottom: 0; right: 0; overflow: hidden; }
 .layer .layer-overlay,
-.layer .layer-overlay.layer-overlay--black { background-color: rgba(0, 0, 0, 0.6); color:#FFFFFF; }
-.layer .layer-overlay.layer-overlay--white { background-color: rgba(255, 255, 255, 0.8); color:#000000; }
+.layer .layer-overlay.layer-overlay--black { background-color: rgba(0, 0, 0, 0.6); color: #FFFFFF; }
+.layer .layer-overlay.layer-overlay--white { background-color: rgba(255, 255, 255, 0.8); color: #000000; }
 .layer .layer-overlay.layer-overlay--loading { cursor: wait; }
 .layer .layer-overlay.layer-overlay--visible { display: block; }
