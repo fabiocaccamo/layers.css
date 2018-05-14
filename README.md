@@ -12,7 +12,7 @@ Pure HTML/CSS indipendent layers stack implementation.
 ```html
 <div class="layers-container">
     
-    <div class="layers-paginator layers-paginator--horizontal layers-paginator--pages-count-10 layers-paginator--page-1">
+    <div class="layers-wrapper">
     
         <div class="layer">
 
@@ -54,13 +54,11 @@ Pure HTML/CSS indipendent layers stack implementation.
 ##### Optional modifiers:
 
 **`.layers-container`**
-- `.layers-container--inline`: display inner `.layer` inline instead of stacked *(requires .layer width customization)*
-
-**`.layers-paginator`**
-- `.layers-paginator--horizontal`: make layers paginated horizontally
-- `.layers-paginator--vertical`: make layers paginated vertically
-- `.layers-paginator--pages-count-{n}`: specify pages count (same as layers count) to correctly set paginator size
-- `.layers-paginator--page-{n}`: specify current paginator page *(1 based)*
+- `.layers-container--pages-h`: display layers horizontally
+- `.layers-container--pages-v`: display layers vertically
+- `.layers-container--pages-count-{n}`: specify pages count to correctly set wrapper size
+- `.layers-container--page-{n}`: specify page to display *(1 based)*
+- `.layers-container--notransition`: disable transition on page change
 
 **`.layer`**
 - `.layer--loading`: show inner `.layer-overlay--loading`
