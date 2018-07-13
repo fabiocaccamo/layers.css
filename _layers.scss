@@ -26,7 +26,7 @@ html, body {
     position: relative;
     overflow: hidden;
 
-    &--paginated {
+    &[class*="layers-container--pages-count-"] {
         .layers-wrapper {
             display: block;
             width: 100%;
@@ -41,14 +41,14 @@ html, body {
                 float: left;
             }
         }
+    }
 
-        @for $i from 1 through 10 {
-            &.layers-container--pages-count-#{$i} .layers-wrapper {
-                width: (100% * $i);
-            }
-            &.layers-container--page-#{$i} .layers-wrapper {
-                margin-left: (-100% * ($i - 1));
-            }
+    @for $i from 1 through 10 {
+        &.layers-container--pages-count-#{$i} .layers-wrapper {
+            width: (100% * $i);
+        }
+        &.layers-container--page-#{$i} .layers-wrapper {
+            margin-left: (-100% * ($i - 1));
         }
     }
 }
@@ -88,6 +88,7 @@ html, body {
         bottom: 0;
         left: 0;
         right: 0;
+        // overflow: hidden;
     }
 
     .layer-body {
