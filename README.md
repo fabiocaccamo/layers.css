@@ -1,5 +1,5 @@
 # html-layers
-Indipendent layers, only css, no js.
+Indipendent html layers, only (s)css, no js at all.
 
 ## Features
 - Each layers-container is independent, it has its own header, scrollable content, footer and overlay
