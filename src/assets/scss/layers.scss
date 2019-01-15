@@ -193,6 +193,12 @@ html, body {
 }
 
 @mixin layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent) {
+    & > .layer-header {
+        height: $header-height;
+    }
+    & > .layer-footer {
+        height: $footer-height;
+    }
     @if $header-translucent == true and $footer-translucent == true {
         & > .layer-body {
             margin-top: 0;
