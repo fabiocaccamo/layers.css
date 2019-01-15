@@ -9,6 +9,11 @@
 
 ## Usage
 
+#### HTML/CSS
+```html
+<link href="css/layers.css" rel="stylesheet">
+```
+
 #### SASS
 
 ###### Import
@@ -17,8 +22,39 @@
 ```
 
 ###### Mixins
+
+- **layer-resize**
+Resize layer's header, content and footer using the given arguments.
+Very useful, especially in media queries.
+
+*Usage:*
 ```scss
-@include layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
+.layer--custom {
+    @include layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
+}
+```
+
+- **layers-resize**
+Similar to `layer-resize`, with the difference that this works at `layers-container` level and affect all its direct sub-layers.
+Resize layer header, content and footer using the given arguments.
+Very useful, especially in media queries.
+
+*Usage:*
+```scss
+.layers-container--custom {
+    @include layers-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
+}
+```
+
+- **layers-resize-modifiers**
+Generate a matrix of layer modifiers to resize layers using classes.
+
+*Usage:*
+```scss
+$header-heights: 50 100;
+$footer-heights: 50 100;
+
+@include layers-resize-presets($header-heights, $footer-heights);
 ```
 
 #### HTML
@@ -72,6 +108,10 @@
 - `.layers-container--page-{1,10}`: indicate the page to display
 
 **`.layer`**
+- `.layer--footer-height-{...}`: set footer height, content will automatically adapt to footer height *(modifiers must be generated using `layers-resize-modifiers` mixin)*.
+- `.layer--footer-translucent`: content will be visible under the footer on scroll and will be automatically padded by footer height
+- `.layer--header-height-{...}`: set header height, content will automatically adapt to footer height *(modifiers must be generated using `layers-resize-modifiers` mixin)*.
+- `.layer--header-translucent`: content will be visible under the header on scroll and will be automatically padded by header height
 - `.layer--hidden`: hide layer
 - `.layer--loading`: show inner `.layer-overlay--loading`
 - `.layer--noheader`: hide inner `.layer-header`
