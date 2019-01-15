@@ -247,7 +247,7 @@ html, body {
     }
 }
 
-@mixin layers-resize-presets($header-heights, $footer-heights) {
+@mixin layers-resize-modifiers($header-heights, $footer-heights) {
     @each $header-height in $header-heights {
         @each $footer-height in $footer-heights {
             .layer.layer--header-translucent.layer--footer-translucent.layer--header-height-#{$header-height}.layer--footer-height-#{$footer-height} {
