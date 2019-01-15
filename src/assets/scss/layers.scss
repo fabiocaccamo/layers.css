@@ -1,6 +1,8 @@
 html, body {
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
 
     &.nobounce {
@@ -15,24 +17,23 @@ html, body {
 
 .layers-container,
 .layers-wrapper,
-.layer {
-    .layer-header,
-    .layer-body,
-    .layer-content,
-    .layer-footer,
-    .layer-overlay {
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-    }
+.layer,
+.layer-header,
+.layer-body,
+.layer-content,
+.layer-footer,
+.layer-overlay {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .layers-container {
     display: block;
     width: 100%;
     height: 100%;
-    position: relative;
     overflow: hidden;
+    position: relative;
 
     &[class*="layers-container--pages-count-"] > .layers-wrapper {
         transition: margin-left 0.3s ease-in-out;
@@ -192,8 +193,8 @@ html, body {
     }
 }
 
-@mixin layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent) {
-    @if $header-transparent == true and $footer-transparent == true {
+@mixin layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent) {
+    @if $header-translucent == true and $footer-translucent == true {
         & > .layer-body {
             margin-top: 0;
             height: 100%;
@@ -203,7 +204,7 @@ html, body {
             }
         }
     }
-    @else if $header-transparent == true and $footer-transparent == false {
+    @else if $header-translucent == true and $footer-translucent == false {
         & > .layer-body {
             margin-top: 0;
             height: calc(100% - #{$footer-height});
@@ -213,7 +214,7 @@ html, body {
             }
         }
     }
-    @else if $header-transparent == false and $footer-transparent == true {
+    @else if $header-translucent == false and $footer-translucent == true {
         & > .layer-body {
             margin-top: $header-height;
             height: calc(100% - #{$header-height});
@@ -223,7 +224,7 @@ html, body {
             }
         }
     }
-    @else if $header-transparent == false and $footer-transparent == false {
+    @else if $header-translucent == false and $footer-translucent == false {
         & > .layer-body {
             margin-top: $header-height;
             height: calc(100% - (#{$header-height} + #{$footer-height}));
@@ -235,8 +236,8 @@ html, body {
     }
 }
 
-@mixin layers-resize($header-height, $header-transparent, $footer-height, $footer-transparent) {
+@mixin layers-resize($header-height, $header-translucent, $footer-height, $footer-translucent) {
     & > .layer {
-        @include layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
+        @include layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent);
     }
 }
