@@ -144,25 +144,34 @@ html, body {
         bottom: 0;
         right: 0;
 
-        &--black {
+        &--dark {
             background-color: rgba(0, 0, 0, 0.6);
             color: #FFFFFF;
         }
-
-        &--white {
+        &--light {
             background-color: rgba(255, 255, 255, 0.8);
             color: #000000;
         }
-
         &--loading {
             cursor: wait;
         }
-
         &--visible {
             display: block;
         }
     }
 
+    &--hidden {
+        display: none;
+    }
+    &--loading {
+        pointer-events: none;
+        & > .layer-overlay {
+            &--loading {
+                display: block;
+                pointer-events: all;
+            }
+        }
+    }
     &--noheader {
         & > .layer-header {
             display: none;
@@ -177,18 +186,6 @@ html, body {
         & > .layer-body,
         & > .layer-body .layer-content {
             overflow-y: hidden;
-        }
-    }
-    &--hidden {
-        display: none;
-    }
-    &--loading {
-        pointer-events: none;
-        & > .layer-overlay {
-            &--loading {
-                display: block;
-                pointer-events: all;
-            }
         }
     }
 }
