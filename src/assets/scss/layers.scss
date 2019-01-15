@@ -246,3 +246,22 @@ html, body {
         @include layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent);
     }
 }
+
+@mixin layers-resize-presets($header-heights, $footer-heights) {
+    @each $header-height in $header-heights {
+        @each $footer-height in $footer-heights {
+            .layer.layer--header-translucent.layer--footer-translucent.layer--header-height-#{$header-height}.layer--footer-height-#{$footer-height} {
+                @include layer-resize(#{$header-height}px, true, #{$footer-height}px, true);
+            }
+            .layer.layer--header-translucent:not(.layer--footer-translucent).layer--header-height-#{$header-height}.layer--footer-height-#{$footer-height} {
+                @include layer-resize(#{$header-height}px, true, #{$footer-height}px, false);
+            }
+            .layer:not(.layer--header-translucent).layer--footer-translucent.layer--header-height-#{$header-height}.layer--footer-height-#{$footer-height} {
+                @include layer-resize(#{$header-height}px, false, #{$footer-height}px, true);
+            }
+            .layer:not(.layer--header-translucent):not(.layer--footer-translucent).layer--header-height-#{$header-height}.layer--footer-height-#{$footer-height} {
+                @include layer-resize(#{$header-height}px, false, #{$footer-height}px, false);
+            }
+        }
+    }
+}
