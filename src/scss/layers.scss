@@ -1,0 +1,228 @@
+@mixin layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent) {
+    @if $header-translucent == true and $footer-translucent == true {
+        & > .layer-header {
+            height: $header-height;
+        }
+        & > .layer-body {
+            margin-top: 0;
+            height: 100%;
+            & > .layer-content {
+                padding-top: $header-height;
+                padding-bottom: $footer-height;
+            }
+        }
+        & > .layer-footer {
+            height: $footer-height;
+        }
+    }
+    @else if $header-translucent == true and $footer-translucent == false {
+        & > .layer-header {
+            height: $header-height;
+        }
+        & > .layer-body {
+            margin-top: 0;
+            height: calc(100% - #{$footer-height});
+            & > .layer-content {
+                padding-top: $header-height;
+                padding-bottom: 0;
+            }
+        }
+        & > .layer-footer {
+            height: $footer-height;
+        }
+    }
+    @else if $header-translucent == false and $footer-translucent == true {
+        & > .layer-header {
+            height: $header-height;
+        }
+        & > .layer-body {
+            margin-top: $header-height;
+            height: calc(100% - #{$header-height});
+            & > .layer-content {
+                padding-top: 0;
+                padding-bottom: $footer-height;
+            }
+        }
+        & > .layer-footer {
+            height: $footer-height;
+        }
+    }
+    @else if $header-translucent == false and $footer-translucent == false {
+        & > .layer-header {
+            height: $header-height;
+        }
+        & > .layer-body {
+            margin-top: $header-height;
+            height: calc(100% - (#{$header-height} + #{$footer-height}));
+            & > .layer-content {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+        & > .layer-footer {
+            height: $footer-height;
+        }
+    }
+}
+
+@mixin layers-resize($header-height, $header-translucent, $footer-height, $footer-translucent) {
+    & > .layer {
+        @include layer-resize($header-height, $header-translucent, $footer-height, $footer-translucent);
+    }
+}
+
+@mixin _layer-reset() {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+@mixin _layer-view($position) {
+    @include _layer-reset();
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: $position;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@mixin _layer-scrollable() {
+    overflow-x: hidden;
+    overflow-y: auto;
+    @supports (-webkit-overflow-scrolling: touch) {
+        &:before,
+        &:after {
+            content: "";
+            @include _layer-view(absolute);
+            z-index: -1;
+            width: 1px;
+            height: calc(100% + 2px);
+            visibility: hidden;
+        }
+        &:before {
+            left: -1px;
+            right: auto;
+        }
+        &:after {
+            left: auto;
+            right: -1px;
+        }
+    }
+}
+
+html, body {
+    @include _layer-view(relative);
+}
+
+.layers-container {
+    @include _layer-view(relative);
+    &[class*="layers-container--pages-"] {
+        @for $i from 1 through 10 {
+            @for $j from 1 through 10 {
+                &.layers-container--page-#{$i} > .layer:nth-child(#{$j}) {
+                    top: (-100% * ($i - 1)) + (100% * ($j - 1));
+                    left: (-100% * ($i - 1)) + (100% * ($j - 1));
+                }
+            }
+        }
+    }
+    &.layers-container--pages-horizontal > .layer {
+        transition: left 0.5s ease-in-out;
+        top: 0 !important;
+    }
+    &.layers-container--pages-vertical > .layer {
+        transition: top 0.5s ease-in-out;
+        left: 0 !important;
+    }
+    &.layers-container--pages-notransition > .layer {
+        transition: none;
+    }
+}
+
+.layer {
+    @include _layer-view(absolute);
+    z-index: 1;
+
+    & > .layer-header {
+        @include _layer-view(absolute);
+        height: auto;
+        bottom: auto;
+        z-index: 2;
+    }
+    & > .layer-footer {
+        @include _layer-view(absolute);
+        height: auto;
+        top: auto;
+        z-index: 1;
+    }
+    & > .layer-body {
+        @include _layer-view(relative);
+        z-index: 0;
+        & > .layer-content {
+            @include _layer-view(relative);
+            @include _layer-scrollable();
+            z-index: 0;
+            &--hidden {
+                display: none;
+            }
+        }
+    }
+    & > .layer-overlay {
+        @include _layer-view(absolute);
+        @include _layer-scrollable();
+        display: none;
+        z-index: 3;
+        &--dark {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #FFFFFF;
+        }
+        &--light {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000000;
+        }
+        &--loading {
+            cursor: wait;
+        }
+        &--visible {
+            display: block;
+        }
+    }
+
+    &--hidden {
+        display: none;
+    }
+    &--loading {
+        pointer-events: none;
+        & > .layer-overlay {
+            &--loading {
+                display: block;
+                pointer-events: all;
+            }
+        }
+    }
+    &--noheader {
+        & > .layer-header {
+            display: none;
+        }
+    }
+    &--nofooter {
+        & > .layer-footer {
+            display: none;
+        }
+    }
+    &--noscroll {
+        & > .layer-body,
+        & > .layer-body .layer-content {
+            overflow-y: hidden;
+        }
+    }
+}
