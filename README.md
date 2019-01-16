@@ -63,7 +63,7 @@ Very useful, especially in media queries.
     @include layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
 }
 ```
----
+
 **`layers-resize`**
 
 Similar to `layer-resize`, with the difference that this must be included at `layers-container` level and affect all its direct child layers.
