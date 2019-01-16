@@ -1,118 +1,93 @@
 # layers.css
 
 ## Features
-- Each layers-container is independent, it has its own header, scrollable content, footer and overlay
-- Scrolling layer's content doesn't affect layers below
-- Layers are stacked by default, optionally displayed inline and paginated horizontally
-- Nestable structure: each layer's content may contain another layers-container
-- Possibility to lock scroll bounce on iOS devices
+- `layers` **are independent**, each one has its own header, body, footer and overlay
+- `layers` **handles scroll perfectly**, when scrolling a layer, layers below are not scrolled
+- `layers` **are stacked** by default, but **can be paginated horizontally or vertically**
+- `layers` **can be nested**, each layer's body content may contain another layers-container
+
+## Installation
+`npm install @fabiocaccamo/layers.css`
 
 ## Usage
 
-#### HTML/CSS
+#### HTML
 ```html
-<link href="css/layers.css" rel="stylesheet">
+<div class="layers-container">
+    <div class="layer">
+        <div class="layer-header">
+            <!-- Header -->
+        </div>
+        <div class="layer-body">
+            <div class="layer-content">
+                <!-- Content -->
+            </div>
+        </div>
+        <div class="layer-footer">
+            <!-- Footer -->
+        </div>
+        <div class="layer-overlay">
+            <!-- Overlay -->
+        </div>
+    </div>
+    <div class="layer">
+        <!-- ... -->
+    </div>
+    <div class="layer">
+        <!-- ... -->
+    </div>
+    <!-- ... -->
+</div>
 ```
 
-#### SASS
+#### CSS import
+If you aren't using `sass`, just include the `layers.css` in your html
+```html
+<link href="css/layers.css" rel="stylesheet" />
+```
 
-###### Import
+#### SASS import
 ```scss
 @import "layers";
 ```
 
-###### Mixins
+#### SASS/mixins
+**`layer-resize`**
 
-- **layer-resize**
-Resize layer's header, content and footer using the given arguments.
+Resize layer header, content and footer automatically according to the given arguments.
+
 Very useful, especially in media queries.
 
-*Usage:*
 ```scss
 .layer--custom {
     @include layer-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
 }
 ```
+---
+**`layers-resize`**
 
-- **layers-resize**
-Similar to `layer-resize`, with the difference that this works at `layers-container` level and affect all its direct sub-layers.
-Resize layer header, content and footer using the given arguments.
+Similar to `layer-resize`, with the difference that this must be included at `layers-container` level and affect all its direct child layers.
+
+Resize layers header, content and footer automatically according to the given arguments.
+
 Very useful, especially in media queries.
 
-*Usage:*
 ```scss
 .layers-container--custom {
     @include layers-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
 }
 ```
 
-- **layers-resize-modifiers**
-Generate a matrix of layer modifiers to resize layers using classes.
-
-*Usage:*
-```scss
-$header-heights: 50 100;
-$footer-heights: 50 100;
-
-@include layers-resize-presets($header-heights, $footer-heights);
-```
-
-#### HTML
-
-```html
-<div class="layers-container">
-
-    <div class="layers-wrapper">
-
-        <div class="layer">
-
-            <div class="layer-header">
-                <!-- Header -->
-            </div>
-
-            <div class="layer-body">
-                <div class="layer-content">
-                    <!-- Content -->
-                </div>
-            </div>
-
-            <div class="layer-footer">
-                <!-- Footer -->
-            </div>
-
-            <div class="layer-overlay">
-                <!-- Overlay -->
-            </div>
-
-        </div>
-
-        <div class="layer">
-            <!-- ... -->
-        </div>
-
-        <div class="layer">
-            <!-- ... -->
-        </div>
-
-        <!-- ... -->
-
-    </div>
-
-</div>
-```
-
-##### Optional modifiers:
+#### Elements modifiers:
 
 **`.layers-container`**
-- `.layers-container--pages-count-{1,10}`: indicate how many pages there are
-- `.layers-container--page-{1,10}`: indicate the page to display
+- `.layers-container--pages-horizontal`: layers will be displayed horizontally
+- `.layers-container--pages-vertical`: layers will be displayed vertically
+- `.layers-container--page-{1,10}`: set the page to display, pages will change with a transition
+- `.layers-container--pages-notransition`: pages will change without transition
 
 **`.layer`**
-- `.layer--footer-height-{...}`: set footer height, content will automatically adapt to footer height *(modifiers must be generated using `layers-resize-modifiers` mixin)*.
-- `.layer--footer-translucent`: content will be visible under the footer on scroll and will be automatically padded by footer height
-- `.layer--header-height-{...}`: set header height, content will automatically adapt to footer height *(modifiers must be generated using `layers-resize-modifiers` mixin)*.
-- `.layer--header-translucent`: content will be visible under the header on scroll and will be automatically padded by header height
-- `.layer--hidden`: hide layer
+- `.layer--hidden`: hide element
 - `.layer--loading`: show inner `.layer-overlay--loading`
 - `.layer--noheader`: hide inner `.layer-header`
 - `.layer--nofooter`: hide inner `.layer-footer`
