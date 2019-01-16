@@ -4,7 +4,7 @@
 - `layers` **are independent**, each one has its own header, body, footer and overlay
 - `layers` **handles scroll perfectly**, when scrolling a layer, layers below are not scrolled
 - `layers` **are stacked** by default, but **can be paginated horizontally or vertically**
-- `layers` **can be nested**, each layer's body content may contain another layers-container
+- `layers` **can be nested**, each `.layer-content` may contain another `.layers-container`
 
 ## Installation
 `npm install @fabiocaccamo/layers.css`
