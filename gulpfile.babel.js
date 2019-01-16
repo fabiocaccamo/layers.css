@@ -1,47 +1,23 @@
 'use strict';
 
 import browser  from 'browser-sync';
-import fs       from 'fs';
 import gulp     from 'gulp';
 import panini   from 'panini';
 import plugins  from 'gulp-load-plugins';
 import rimraf   from 'rimraf';
-import sherpa   from 'style-sherpa';
-import svgo     from 'gulp-svgo';
-import yaml     from 'js-yaml';
 import yargs    from 'yargs';
 
 const $ = plugins();
 const ARGS = yargs.argv;
 const PRODUCTION = !!(ARGS.production);
-const { COMPATIBILITY, PORT, PATHS } = loadConfig();
+const PATH_DIST = 'dist'
 
-function loadConfig() {
-    let ymlFile = fs.readFileSync('config.yml', 'utf8');
-    return yaml.load(ymlFile);
-}
-
-gulp.task('serve',
-    gulp.series(
-        clean,
-        gulp.parallel(pages, sass),
-        server,
-        watch
-    ));
-
-gulp.task('build',
-    gulp.series(
-        clean,
-        gulp.parallel(pages, sass)
-    ));
-
-gulp.task('default',
-    gulp.series(
-        'serve'
-    ));
+gulp.task('watch', gulp.series(clean, gulp.parallel(pages, sass), server, watch));
+gulp.task('build', gulp.series(clean, gulp.parallel(pages, sass)));
+gulp.task('default', gulp.series('watch'));
 
 function clean(done) {
-    rimraf(PATHS.dist, done);
+    rimraf(PATH_DIST, done);
 }
 
 function pages() {
@@ -50,10 +26,10 @@ function pages() {
             root: 'src/pages/',
             layouts: 'src/layouts/',
             partials: 'src/partials/',
-            data: 'src/data/',
-            helpers: 'src/helpers/'
+            // data: 'src/data/',
+            // helpers: 'src/helpers/'
         }))
-        .pipe(gulp.dest(PATHS.dist));
+        .pipe(gulp.dest(PATH_DIST));
 }
 
 function resetPages(done) {
@@ -62,25 +38,20 @@ function resetPages(done) {
 }
 
 function sass() {
-    return gulp.src('src/assets/scss/layers.scss')
+    return gulp.src('src/scss/*.scss')
         .pipe($.if(!PRODUCTION, $.sourcemaps.init()))
-        .pipe($.sass({
-            includePaths: PATHS.sass
-        })
-        .on('error', $.sass.logError))
-        .pipe($.autoprefixer({
-            browsers: COMPATIBILITY
-        }))
+        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.autoprefixer({ browsers: ['last 2 versions', 'ie >= 9', 'ios >= 7'] }))
         .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
         .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
-        .pipe(gulp.dest(PATHS.dist + '/css'))
-        .pipe(browser.reload({ stream: true }));
+        .pipe(gulp.dest(PATH_DIST + '/css'))
+        .pipe(browser.reload({ stream: true }))
 }
 
 function server(done) {
     browser.init({
-        server: PATHS.dist,
-        port: PORT
+        server: PATH_DIST,
+        port: 8000
     });
     done();
 }
@@ -93,5 +64,5 @@ function reload(done) {
 function watch() {
     gulp.watch('src/pages/**/*.html').on('all', gulp.series(pages, browser.reload));
     gulp.watch('src/{layouts,partials}/**/*.html').on('all', gulp.series(resetPages, pages, browser.reload));
-    gulp.watch('src/assets/scss/**/*.scss').on('all', gulp.series(sass, browser.reload));
+    gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, browser.reload));
 }
