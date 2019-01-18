@@ -1,9 +1,10 @@
 # layers.css
+Pure (s)css html layers, no js at all.
 
 ## Features
 
-- `layers` **are independent**, each `.layer` has its own header, body, footer and overlay
-- `layers` **are full-viewport**, each `.layers-container` size is 100% width/height on all devices/browsers
+- `layers` **are independent**, each `.layer` has its own fixed header, body, fixed footer and overlay
+- `layers` **are full-viewport**, each `.layers-container` is 100% width/height of its parent on all devices/browsers
 - `layers` **handle scroll perfectly**, when you touch/scroll a layer, layers below are not scrolled
 - `layers` **are stacked** by default, but **can be paginated horizontally or vertically** just using some modifiers
 - `layers` **can be nested**, each `.layer-content` may contain another `.layers-container`
