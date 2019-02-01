@@ -1,6 +1,6 @@
 {
   "name": "@fabiocaccamo/layers.css",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pure (s)css html layers, no js at all.",
   "keywords": [
     "html",

@@ -200,15 +200,6 @@ html, body {
     &--hidden {
         display: none;
     }
-    &--loading {
-        pointer-events: none;
-        & > .layer-overlay {
-            &--loading {
-                display: block;
-                pointer-events: all;
-            }
-        }
-    }
     &--noheader {
         & > .layer-header {
             display: none;
@@ -224,5 +215,18 @@ html, body {
         & > .layer-body .layer-content {
             overflow-y: hidden;
         }
+    }
+}
+
+.layers-container--loading > .layer,
+.layers-container > .layer--loading {
+    cursor: wait;
+    & > .layer-header,
+    & > .layer-body,
+    & > .layer-footer {
+        pointer-events: none;
+    }
+    & > .layer-overlay--loading {
+        display: block;
     }
 }
