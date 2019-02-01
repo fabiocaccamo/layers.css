@@ -146,6 +146,12 @@ html, body {
     &.layers-container--pages-notransition > .layer {
         transition: none;
     }
+    &--loading {
+        cursor: wait;
+        & > .layer {
+            pointer-events: none;
+        }
+    }
 }
 
 .layer {
@@ -200,6 +206,18 @@ html, body {
     &--hidden {
         display: none;
     }
+    &--loading {
+        cursor: wait;
+        & > .layer-header,
+        & > .layer-body,
+        & > .layer-footer,
+        & > .layer-overlay:not(.layer-overlay--loading) {
+            pointer-events: none;
+        }
+        & > .layer-overlay--loading {
+            display: block;
+        }
+    }
     &--noheader {
         & > .layer-header {
             display: none;
@@ -215,18 +233,5 @@ html, body {
         & > .layer-body .layer-content {
             overflow-y: hidden;
         }
-    }
-}
-
-.layers-container--loading > .layer,
-.layers-container > .layer--loading {
-    cursor: wait;
-    & > .layer-header,
-    & > .layer-body,
-    & > .layer-footer {
-        pointer-events: none;
-    }
-    & > .layer-overlay--loading {
-        display: block;
     }
 }
