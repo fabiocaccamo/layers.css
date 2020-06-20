@@ -4,10 +4,10 @@ Pure (s)css html layers, no js at all.
 ## Features
 
 - `layers` **are independent**, each `.layer` has its own fixed header, body, fixed footer and overlay
-- `layers` **are full-viewport**, each `.layers-container` is 100% width/height of its parent on all devices/browsers
+- `layers` **are full-viewport**, each `.layers` is 100% width/height of its parent on all devices/browsers
 - `layers` **handle scroll perfectly**, when you touch/scroll a layer, layers below are not scrolled
 - `layers` **are stacked** by default, but **can be paginated horizontally or vertically** just using some modifiers
-- `layers` **can be nested**, each `.layer-content` may contain another `.layers-container`
+- `layers` **can be nested**, each `.layer-content` may contain another `.layers` container
 
 ## Installation
 `npm install @fabiocaccamo/layers.css`
@@ -16,7 +16,7 @@ Pure (s)css html layers, no js at all.
 
 #### HTML
 ```html
-<div class="layers-container">
+<div class="layers">
     <div class="layer">
         <div class="layer-header">
             <!-- Header -->
@@ -69,25 +69,25 @@ Very useful, especially in media queries.
 
 **`layers-resize`**
 
-Similar to `layer-resize`, with the difference that this must be included at `.layers-container` level and affect all its direct child layers.
+Similar to `layer-resize`, with the difference that this must be included at `.layers` level and affect all its direct child layers.
 
 Resize layers header, content and footer automatically according to the given arguments.
 
 Very useful, especially in media queries.
 
 ```scss
-.layers-container--custom {
+.layers--custom {
     @include layers-resize($header-height, $header-transparent, $footer-height, $footer-transparent);
 }
 ```
 
 #### Elements modifiers:
 
-**`.layers-container`**
-- `.layers-container--pages-horizontal`: layers will be displayed horizontally
-- `.layers-container--pages-vertical`: layers will be displayed vertically
-- `.layers-container--page-{1,10}`: set the page to display, pages will change with a transition
-- `.layers-container--pages-notransition`: pages will change without transition
+**`.layers`**
+- `.layers--pages-horizontal`: layers will be displayed horizontally
+- `.layers--pages-vertical`: layers will be displayed vertically
+- `.layers--page-{1,10}`: set the page to display, pages will change with a transition
+- `.layers--pages-notransition`: pages will change without transition
 
 **`.layer`**
 - `.layer--hidden`: hide element

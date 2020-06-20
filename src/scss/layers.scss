@@ -71,81 +71,90 @@
     }
 }
 
-@mixin _layer-reset() {
+@mixin _layer-view($position:absolute, $scrollable:false) {
+    // reset
     margin: 0;
     padding: 0;
     border: none;
     box-sizing: border-box;
     outline: none;
-}
-
-@mixin _layer-view($position) {
-    @include _layer-reset();
+    // make full-size
     display: block;
     width: 100%;
     height: 100%;
-    max-width: 100vw;
-    max-height: 100vh;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    max-height: 100%;
+    // set position
     position: $position;
+    z-index: 0;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-}
-
-@mixin _layer-scrollable() {
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-width: 100%;
-    max-height: 100%;
-    @supports (-webkit-overflow-scrolling: touch) {
-        &:before,
-        &:after {
-            content: "";
-            @include _layer-view(absolute);
-            z-index: -1;
-            width: 1px;
-            height: calc(100% + 2px);
-            visibility: hidden;
+    // setup scroll behavior
+    @if $scrollable == true {
+        // max-width: 100%;
+        // max-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: auto;
+        @supports (-webkit-overflow-scrolling: touch) {
+            &:before,
+            &:after {
+                content: "";
+                @include _layer-view(absolute);
+                z-index: -1;
+                width: 1px;
+                height: calc(100% + 2px);
+                visibility: hidden;
+            }
+            &:before {
+                left: -1px;
+                right: auto;
+            }
+            &:after {
+                left: auto;
+                right: -1px;
+            }
         }
-        &:before {
-            left: -1px;
-            right: auto;
-        }
-        &:after {
-            left: auto;
-            right: -1px;
-        }
+    }
+    @else {
+        // max-width: 100vw;
+        // max-height: 100vh;
+        overflow: hidden;
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: none;
+        touch-action: none;
     }
 }
 
 html, body {
-    @include _layer-view(relative);
+    @include _layer-view();
 }
 
-.layers-container {
+.layers {
     @include _layer-view(relative);
-    &[class*="layers-container--pages-"] {
+    &[class*="layers--pages-"] {
         @for $i from 1 through 10 {
             @for $j from 1 through 10 {
-                &.layers-container--page-#{$i} > .layer:nth-child(#{$j}) {
+                &.layers--page-#{$i} > .layer:nth-child(#{$j}) {
                     top: (-100% * ($i - 1)) + (100% * ($j - 1));
                     left: (-100% * ($i - 1)) + (100% * ($j - 1));
                 }
             }
         }
     }
-    &.layers-container--pages-horizontal > .layer {
+    &.layers--pages-horizontal > .layer {
         transition: left 0.5s ease-in-out;
         top: 0 !important;
     }
-    &.layers-container--pages-vertical > .layer {
+    &.layers--pages-vertical > .layer {
         transition: top 0.5s ease-in-out;
         left: 0 !important;
     }
-    &.layers-container--pages-notransition > .layer {
+    &.layers--pages-notransition > .layer {
         transition: none;
     }
     &--loading {
@@ -157,27 +166,26 @@ html, body {
 }
 
 .layer {
-    @include _layer-view(absolute);
+    @include _layer-view();
     z-index: 1;
 
     & > .layer-header {
-        @include _layer-view(absolute);
+        @include _layer-view();
         height: auto;
         bottom: auto;
         z-index: 2;
     }
     & > .layer-footer {
-        @include _layer-view(absolute);
+        @include _layer-view();
         height: auto;
         top: auto;
         z-index: 1;
     }
     & > .layer-body {
-        @include _layer-view(relative);
+        @include _layer-view();
         z-index: 0;
         & > .layer-content {
-            @include _layer-view(relative);
-            @include _layer-scrollable();
+            @include _layer-view(relative, true);
             z-index: 0;
             &--hidden {
                 display: none;
@@ -185,8 +193,7 @@ html, body {
         }
     }
     & > .layer-overlay {
-        @include _layer-view(absolute);
-        @include _layer-scrollable();
+        @include _layer-view(absolute, true);
         display: none;
         z-index: 3;
         &--dark {
